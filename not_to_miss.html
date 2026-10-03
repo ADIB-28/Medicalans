@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সাধারণ বিজ্ঞান ৭১টি তথ্যের পূর্ণাঙ্গ কুইজ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .custom-radio:checked + label {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 pb-12">
+
+    <!-- Header -->
+    <header class="bg-indigo-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold flex items-center gap-2">
+                    <i class="fas fa-vial"></i> সাধারণ বিজ্ঞান ৭১টি তথ্য কুইজ
+                </h1>
+                <p class="text-xs md:text-sm text-indigo-100 mt-1">প্রস্তুতি যাচাই করুন এবং বিসিএস/চাকরির পরীক্ষার জন্য রিভিশন দিন</p>
+            </div>
+            <div class="bg-indigo-800 px-3 py-1.5 rounded-lg text-right border border-indigo-500">
+                <span class="text-xs text-indigo-200 block">স্কোর</span>
+                <span id="score-display" class="text-lg md:text-xl font-bold text-amber-300">০ / ৭১</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 mt-6">
+
+        <!-- Progress Bar -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6">
+            <div class="flex justify-between items-center text-sm font-semibold text-slate-600 mb-2">
+                <span>অগ্রগতি</span>
+                <span id="progress-text">প্রশ্ন ১ / ৭১</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                <div id="progress-bar" class="bg-indigo-600 h-3 rounded-full transition-all duration-300" style="width: 1.4%"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Card -->
+        <div id="quiz-card" class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 md:p-8">
+            <div class="flex items-center gap-2 mb-4">
+                <span id="category-badge" class="bg-indigo-100 text-indigo-800 text-xs px-2.5 py-1 rounded-full font-semibold">রসায়ন ও এসিড</span>
+                <span class="text-xs text-slate-400">প্রশ্ন নম্বর: <span id="q-num">১</span></span>
+            </div>
+
+            <h2 id="question-text" class="text-lg md:text-xl font-bold text-slate-800 mb-6 leading-relaxed">
+                পাকা কলায় সুগন্ধের জন্য নিচের কোনটি থাকে?
+            </h2>
+
+            <div id="options-container" class="space-y-3 mb-6">
+                <!-- Options will be dynamically injected -->
+            </div>
+
+            <!-- Explanation Box (Initially Hidden) -->
+            <div id="explanation-box" class="hidden p-4 rounded-xl mb-6 text-sm border transition-all">
+                <div class="font-bold mb-1 flex items-center gap-2" id="explanation-title">
+                    <i class="fas fa-info-circle"></i> ব্যাখ্যা ও সম্পর্কিত তথ্য
+                </div>
+                <div id="explanation-text" class="text-slate-700 leading-relaxed"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                <button id="prev-btn" onclick="prevQuestion()" class="px-4 py-2 text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed text-sm flex items-center gap-1">
+                    <i class="fas fa-arrow-left"></i> পূর্ববর্তী
+                </button>
+                <div class="flex gap-2">
+                    <button id="submit-btn" onclick="checkAnswer()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold shadow-sm transition text-sm">
+                        উত্তর যাঁচাই করুন
+                    </button>
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-semibold shadow-sm transition text-sm flex items-center gap-1">
+                        পরবর্তী <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Card (Hidden Initially) -->
+        <div id="result-card" class="hidden bg-white rounded-2xl shadow-md border border-slate-200 p-8 text-center">
+            <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto text-3xl mb-4">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">কুইজ সম্পন্ন হয়েছে!</h2>
+            <p class="text-slate-600 mb-6">৭১টি তথ্যের কুইজে আপনার চূড়ান্ত ফলাফল নিচে দেওয়া হলো:</p>
+
+            <div class="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="block text-2xl font-bold text-slate-700" id="res-total">৭১</span>
+                    <span class="text-xs text-slate-500">মোট প্রশ্ন</span>
+                </div>
+                <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                    <span class="block text-2xl font-bold text-emerald-600" id="res-correct">০</span>
+                    <span class="text-xs text-emerald-700">সঠিক উত্তর</span>
+                </div>
+                <div class="bg-rose-50 p-4 rounded-xl border border-rose-200">
+                    <span class="block text-2xl font-bold text-rose-600" id="res-wrong">০</span>
+                    <span class="text-xs text-rose-700">ভুল উত্তর</span>
+                </div>
+            </div>
+
+            <button onclick="restartQuiz()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition inline-flex items-center gap-2">
+                <i class="fas fa-redo"></i> পুনরায় শুরু করুন
+            </button>
+        </div>
+
+    </main>
+
+    <script>
+        const quizData = [
+            {
+                category: "রসায়ন ও এসিড",
+                question: "১) পাকা কলায় কোনটি বিদ্যমান থাকে?",
+                options: ["এমাইল এসিটেট", "ইথাইল এসিটেট", "অকটাইল এসিটেট", "সাইট্রিক এসিড"],
+                correct: 0,
+                rationale: "পাকা কলায় 'এমাইল এসিটেট' থাকে। (এছাড়া পাকা আনারসে ইথাইল এসিটেট এবং পাকা কমলায় অকটাইল এসিটেট থাকে)।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "২) পাকা আনারসে কোনটি উপস্থিত থাকে?",
+                options: ["এমাইল এসিটেট", "ইথাইল এসিটেট", "অকটাইল এসিটেট", "ম্যালিক এসিড"],
+                correct: 1,
+                rationale: "পাকা আনারসে 'ইথাইল এসিটেট' থাকে।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "৩) পাকা কমলায় কোনটি পাওয়া যায়?",
+                options: ["এমাইল এসিটেট", "ইথাইল এসিটেট", "অকটাইল এসিটেট", "টারটারিক এসিড"],
+                correct: 2,
+                rationale: "পাকা কমলায় 'অকটাইল এসিটেট' বিদ্যমান।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "৪) টমেটোতে প্রধানত কোন এসিড থাকে?",
+                options: ["সাইট্রিক এসিড", "ম্যালিক এসিড", "টারটারিক এসিড", "অক্সালিক এসিড"],
+                correct: 1,
+                rationale: "টমেটোতে 'ম্যালিক এসিড' থাকে। (আপেলেও ম্যালিক এসিড পাওয়া যায়)।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "৫) লেবুর রসে বিদ্যমান এসিড কোনটি?",
+                options: ["সাইট্রিক এসিড", "ম্যালিক এসিড", "ল্যাকটিক এসিড", "এসিটিক এসিড"],
+                correct: 0,
+                rationale: "লেবুর রসে 'সাইট্রিক এসিড' পাওয়া যায়।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "৬) আপেলে কোন এসিড থাকে?",
+                options: ["টারটারিক এসিড", "ম্যালিক এসিড", "এসকরবিক এসিড", "ল্যাকটিক এসিড"],
+                correct: 1,
+                rationale: "আপেলে 'ম্যালিক এসিড' থাকে।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "৭) তেঁতুলে কোন এসিড থাকে?",
+                options: ["টারটারিক এসিড", "ম্যালিক এসিড", "অক্সালিক এসিড", "এসিটিক এসিড"],
+                correct: 0,
+                rationale: "তেঁতুলে 'টারটারিক এসিড' থাকে। (আঙ্গুরেও টারটারিক এসিড পাওয়া যায়)।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "৮) আমলকিতে প্রধানত কোন এসিড পাওয়া যায়?",
+                options: ["সাইট্রিক এসিড", "অক্সালিক এসিড", "ম্যালিক এসিড", "টারটারিক এসিড"],
+                correct: 1,
+                rationale: "আমলকিতে 'অক্সালিক এসিড' থাকে।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "৯) আঙ্গুরে কোন এসিড থাকে?",
+                options: ["টারটারিক এসিড", "ল্যাকটিক এসিড", "এসকরবিক এসিড", "এসিটিক এসিড"],
+                correct: 0,
+                rationale: "আঙ্গুরে 'টারটারিক এসিড' থাকে।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "১০) কমলালেবুতে সমৃদ্ধভাবে কোন এসিড পাওয়া যায়?",
+                options: ["এসকরবিক এসিড", "ম্যালিক এসিড", "অক্সালিক এসিড", "এসিটিক এসিড"],
+                correct: 0,
+                rationale: "কমলালেবুতে 'এসকরবিক এসিড' (ভিটামিন সি) থাকে।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "১১) দুধে কোন এসিড থাকে?",
+                options: ["সাইট্রিক এসিড", "ল্যাকটিক এসিড", "ম্যালিক এসিড", "এসিটিক এসিড"],
+                correct: 1,
+                rationale: "দুধে 'ল্যাকটিক এসিড' থাকে।"
+            },
+            {
+                category: "উদ্ভিদ ও রাসায়নিক উপাদান",
+                question: "১২) কচু খেলে গলা চুলকায় কেন?",
+                options: ["ক্যালসিয়াম অক্সালেট থাকায়", "সোডিয়াম স্টিয়ারেট থাকায়", "ম্যালিক এসিড থাকায়", "অ্যামোনিয়া থাকায়"],
+                correct: 0,
+                rationale: "কচুতে সুঁচালো 'ক্যালসিয়াম অক্সালেট' এর ক্লাশ থাকায় গলা চুলকায়।"
+            },
+            {
+                category: "ভৌগোলিক বিজ্ঞান",
+                question: "১৩) পৃথিবীর আকার গোল — এই ধারণা প্রথম কার?",
+                options: ["এরিস্টটল", "পিথাগোরাস", "গ্যালিলিও", "নিউটন"],
+                correct: 1,
+                rationale: "পৃথিবীর আকার গোল— এ ধারণাটি গ্রিক গণিতবিদ 'পিথাগোরাসের'।"
+            },
+            {
+                category: "সংকেত ও পূর্ণরূপ",
+                question: "১৪) ডিডিটি (DDT) এর পূর্ণরূপ কি?",
+                options: [
+                    "ডাই-ক্লোরো-ডাই-ফিনাইল-ট্রাই-ক্লোরো-ইথেন",
+                    "ডাই-ক্লোরো-ডাই-ফিনাইল-টেট্রা-ইথেন",
+                    "ডাই-কার্বন-ডাই-ফিনাইল-ট্রাই-ইথেন",
+                    "ডাই-ক্লোরো-ট্রাই-ফিনাইল-ইথেন"
+                ],
+                correct: 0,
+                rationale: "DDT = Dichloro-Diphenyl-Trichloroethane (ডাই-ক্লোরো-ডাই-ফিনাইল-ট্রাই-ক্লোরো-ইথেন)।"
+            },
+            {
+                category: "সংকেত ও পূর্ণরূপ",
+                question: "১৫) টিএনটি (TNT) এর পূর্ণরুপ কি?",
+                options: ["ট্রাই নাইট্রো টলুইন", "ট্রাই নাইট্রাস টাইটানিয়াম", "টেট্রা নাইট্রো টলুইন", "ট্রাই ট্রাই-নাইট্রিন"],
+                correct: 0,
+                rationale: "TNT = Tri-Nitro-Toluene (ট্রাই নাইট্রো টলুইন)। এটি একটি বিস্ফোরক।"
+            },
+            {
+                category: "ব্যবহারিক রসায়ন",
+                question: "১৬) সাবানের রাসায়নিক নাম কি?",
+                options: ["সোডিয়াম স্টিয়ারেট", "সোডিয়াম মনোগ্লুটামেট", "সোডিয়াম ক্লোরাইড", "জিঙ্ক অক্সাইড"],
+                correct: 0,
+                rationale: "সাবানের রাসায়নিক নাম 'সোডিয়াম স্টিয়ারেট'।"
+            },
+            {
+                category: "ব্যবহারিক রসায়ন",
+                question: "১৭) টেস্টিং সল্ট এর রাসায়নিক নাম কি?",
+                options: ["সোডিয়াম স্টিয়ারেট", "সোডিয়াম মনোগ্লুটামেট", "সোডিয়াম নাইট্রেট", "ক্যালসিয়াম কার্বনেট"],
+                correct: 1,
+                rationale: "টেস্টিং সল্ট-এর রাসায়নিক নাম 'সোডিয়াম মনোগ্লুটামেট' (MSG)।"
+            },
+            {
+                category: "ব্যবহারিক রসায়ন",
+                question: "১৮) পেট্রোলের অপর নাম কি?",
+                options: ["গ্যাসোলিন", "কেরোসিন", "ডিজেল", "বেনজিন"],
+                correct: 0,
+                rationale: "পেট্রোলের অপর নাম হলো 'গ্যাসোলিন'।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "১৯) সিরকায় (Vinegar) কোন এসিড থাকে?",
+                options: ["এসিটিক এসিড", "সাইট্রিক এসিড", "ম্যালিক এসিড", "ফর্মিক এসিড"],
+                correct: 0,
+                rationale: "সিরকায় 'এসিটিক এসিড' (ইথানয়িক এসিডের ৪-১০% জলীয় দ্রবণ) থাকে।"
+            },
+            {
+                category: "ভৌগোলিক বিজ্ঞান",
+                question: "২০) পৃথিবীর ব্যাসার্ধ কত?",
+                options: ["৬৪৩৪ কিমি", "৫০০০ কিমি", "৭২০০ কিমি", "১২৭০০ কিমি"],
+                correct: 0,
+                rationale: "পৃথিবীর গড় ব্যাসার্ধ প্রায় '৬৪৩৪ কিমি' (বা আনুমানিক ৬৩৭১ কিমি)।"
+            },
+            {
+                category: "ভৌগোলিক বিজ্ঞান",
+                question: "২১) পৃথিবীর বয়স আনুমানিক কত?",
+                options: ["৪৫০ কোটি বছর", "২০০ কোটি বছর", "৩৫০ কোটি বছর", "৫০০ কোটি বছর"],
+                correct: 0,
+                rationale: "বিজ্ঞানের মতে পৃথিবীর বয়স আনুমানিক '৪৫০ কোটি বছর' (4.5 Billion years)।"
+            },
+            {
+                category: "ব্যবহারিক রসায়ন",
+                question: "২২) লাফিং গ্যাস কোনটি?",
+                options: ["নাইট্রাস অক্সাইড", "নাইট্রোজেন ডাইঅক্সাইড", "নাইট্রিক অক্সাইড", "অ্যামোনিয়া"],
+                correct: 0,
+                rationale: "নাইট্রাস অক্সাইড (N₂O)-কে লাফিং গ্যাস বলে। এটি হাস্যউদ্দীপক।"
+            },
+            {
+                category: "ব্যবহারিক রসায়ন",
+                question: "২৩) 'দার্শনিকের উল' (Philosopher's Wool) নামে পরিচিত কোনটি?",
+                options: ["জিঙ্ক অক্সাইড", "ক্যালসিয়াম অক্সাইড", "আয়রন ডি সালফাইড", "কপার সালফেট"],
+                correct: 0,
+                rationale: "জিঙ্ক অক্সাইড (ZnO)-কে দর্শিকের উল বলা হয়।"
+            },
+            {
+                category: "প্রাণীর রসায়ন",
+                question: "২৪) সাপের বিষে কোন ধাতুর আয়ন/উপাদান থাকে?",
+                options: ["জিংক", "কপার", "আয়রন", "ক্যালসিয়াম"],
+                correct: 0,
+                rationale: "সাপের বিষে 'জিংক' (Zinc) এনজাইম উপাদান হিসেবে বিদ্যমান থাকে।"
+            },
+            {
+                category: "ভৌগোলিক বিজ্ঞান",
+                question: "২৫) উত্তর গোলার্ধে ক্ষুদ্রতম দিন কবে?",
+                options: ["২২ ডিসেম্বর", "২১ জুন", "২৩ সেপ্টেম্বর", "২১ মার্চ"],
+                correct: 0,
+                rationale: "উত্তর গোলার্ধে সবচেয়ে ক্ষুদ্রতম দিন '২২ ডিসেম্বর' (এবং দীর্ঘতম দিন ২১ জুন)।"
+            },
+            {
+                category: "ভৌত রসায়ন",
+                question: "২৬) বিজারক হিসেবে ক্রিয়া করে এমন একমাত্র অধাতু কোনটি?",
+                options: ["কার্বন", "সালফার", "ফসফরাস", "হাইড্রোজেন"],
+                correct: 0,
+                rationale: "অধাতু হওয়া সত্ত্বেও 'কার্বন' বিজারক হিসেবে কাজ করতে পারে।"
+            },
+            {
+                category: "ব্যবহারিক রসায়ন",
+                question: "২৭) 'নির্বোধের সোনা' (Fool's Gold) বলা হয় কোনটিকে?",
+                options: ["আয়রন ডি সালফাইড", "কপার পাইরাইটস", "জিঙ্ক অক্সাইড", "সোডিয়াম নাইট্রেট"],
+                correct: 0,
+                rationale: "আয়রন ডি সালফাইড (FeS₂)-কে এর সোনালী চমকের কারণে 'নির্বোধের সোনা' বলা হয়।"
+            },
+            {
+                category: "ভৌত রসায়ন",
+                question: "২৮) ধাতুর সক্রিয়তা সিরিজে সবচেয়ে সক্রিয় ধাতু কোনটি?",
+                options: ["পটাসিয়াম", "সোডিয়াম", "ক্যালসিয়াম", "লিথিয়াম"],
+                correct: 0,
+                rationale: "তালিকায় 'পটাসিয়াম' অত্যন্ত সক্রিয় ধাতু।"
+            },
+            {
+                category: "রসায়ন ও জৈব যৌগ",
+                question: "২৯) স্বাদে মিষ্টি অথচ কার্বোহাইড্রেট নয় কোনটি?",
+                options: ["গ্লিসারিন", "গ্লুকোজ", "ফ্রুক্টোজ", "সুক্রোজ"],
+                correct: 0,
+                rationale: "গ্লিসারিন স্বাদে মিষ্টি হলেও এটি একটি ট্রাইহাইড্রিক অ্যালকোহল, কার্বোহাইড্রেট নয়।"
+            },
+            {
+                category: "রসায়ন ও জৈব যৌগ",
+                question: "৩০) কোন বিজ্ঞানী পরীক্ষাগারে সর্বপ্রথম জৈব যৌগ প্রস্তুত করেন?",
+                options: ["জার্মান বিজ্ঞানী উহলার", "ল্যাভয়সিয়ে", "ডাল্টন", "রদারফোর্ড"],
+                correct: 0,
+                rationale: "জার্মান বিজ্ঞানী ফ্রেডরিখ উহলার (Wöhler) পরীক্ষাগারে অজৈব যৌগ থেকে ইউরিয়া প্রস্তুত করেন।"
+            },
+            {
+                category: "রসায়ন ও এসিড",
+                question: "৩১) বিশুদ্ধ সালফিউরিক এসিডের অপর নাম কি?",
+                options: ["সালফান", "ওয়েল অব ভিট্রিওল", "মিউরিয়াটিক এসিড", "ম্যালিক এসিড"],
+                correct: 0,
+                rationale: "১০০% বিশুদ্ধ সালফিউরিক এসিডের অপর নাম 'সালফান' (Salphan)।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৩২) প্রস্রাব থেকে যে তীব্র ঝাঁঝালো গন্ধ আসে তা কিসের?",
+                options: ["অ্যামোনিয়া", "ইউরিয়া", "ইউরিক এসিড", "ক্রিয়েটিনিন"],
+                correct: 0,
+                rationale: "প্রস্রাবে ব্যাকটেরিয়া দ্বারা ইউরিয়া ভেঙে 'অ্যামোনিয়া' তৈরি হয় যা গন্ধের মূল কারণ।"
+            },
+            {
+                category: "জীববিজ্ঞান",
+                question: "৩৩) একজন পূর্ণবয়স্ক মানুষের দেহে কোষের সংখ্যা কত?",
+                options: ["৬ লক্ষ কোটি থেকে ১০ লক্ষ কোটি", "১ লক্ষ কোটি", "২০ লক্ষ কোটি", "৫০ লক্ষ কোটি"],
+                correct: 0,
+                rationale: "পূর্ণবয়স্ক মানুষের দেহে কোষের সংখ্যা আনুমানিক '৬ লক্ষ কোটি থেকে ১০ লক্ষ কোটি'।"
+            },
+            {
+                category: "সাইটোলজি/কোষবিজ্ঞান",
+                question: "৩৪) জীবকোষের প্রোটিন ফ্যাক্টরি বলা হয় কোনটিকে যেখানে প্রোটিন সংশ্লেষিত হয়?",
+                options: ["রাইবোজম", "মাইটোকন্ড্রিয়া", "লাইসোজোম", "গলগি বডি"],
+                correct: 0,
+                rationale: "কোষের 'রাইবোজমে' প্রোটিন প্রস্তুত হয়, তাই একে প্রোটিন ফ্যাক্টরি বলা হয়।"
+            },
+            {
+                category: "সাইটোলজি/কোষবিজ্ঞান",
+                question: "৩৫) কোন জীবে সবচেয়ে কম সংখ্যক ক্রোমোজোম থাকে?",
+                options: ["এক ধরনের পুরুষ পিঁপড়ায় (১টি)", "মাছিতে (২টি)", "ব্যাঙে (৪টি)", "অ্যামিবায় (১টি)"],
+                correct: 0,
+                rationale: "এক ধরনের পুরুষ পিঁপড়ায় (Myrmecia pilosula) ১টি এবং স্ত্রী পিঁপড়ায় ২টি ক্রোমোজোম থাকে।"
+            },
+            {
+                category: "উদ্ভিদবিজ্ঞান",
+                question: "৩৬) কোন উদ্ভিদে সর্বাধিক সংখ্যক ক্রোমোজোম থাকে?",
+                options: ["ফার্ণবর্গীয় উদ্ভিদে (প্রায় ১২৬০টি)", "ধান গাছে", "গম গাছে", "আম গাছে"],
+                correct: 0,
+                rationale: "ফার্ণবর্গীয় উদ্ভিদ (Ophioglossum reticulatum)-এ সর্বাধিক প্রায় ১২৬০টি ক্রোমোজোম থাকে।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৩৭) সাধারণ মাছিতে কয়টি ক্রোমোজোম থাকে?",
+                options: ["১২ টি", "২৪ টি", "৬ টি", "৪৮ টি"],
+                correct: 0,
+                rationale: "মাছিতে '১২ টি' (৬ জোড়া) ক্রোমোজোম থাকে।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৩৮) কুকুরে কয়টি ক্রোমোজোম থাকে?",
+                options: ["৭৮ টি", "৬০ টি", "৫৪ টি", "৪৬ টি"],
+                correct: 0,
+                rationale: "কুকুরে '৭৮ টি' (৩৯ জোড়া) ক্রোমোজোম থাকে। (মুরগীতেও ৭৮টি)।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৩৯) গরু ও ছাগলে কয়টি করে ক্রোমোজোম থাকে?",
+                options: ["৬০ টি", "৪৮ টি", "৫৪ টি", "৪০ টি"],
+                correct: 0,
+                rationale: "গরু ও ছাগলে '৬০ টি' (৩০ জোড়া) ক্রোমোজোম থাকে।"
+            },
+            {
+                category: "উদ্ভিদবিজ্ঞান",
+                question: "৪০) ধান গাছে কয়টি ক্রোমোজোম থাকে?",
+                options: ["২৪ টি", "১২ টি", "৪৮ টি", "২০ টি"],
+                correct: 0,
+                rationale: "ধান গাছে '২৪ টি' (১২ জোড়া) ক্রোমোজোম বিদ্যমান।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৪১) ব্যাঙে কয়টি ক্রোমোজোম থাকে?",
+                options: ["২২ টি", "২৪ টি", "২৬ টি", "২০ টি"],
+                correct: 0,
+                rationale: "ব্যাঙে '২২ টি' (১১ জোড়া) ক্রোমোজোম থাকে।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৪২) মুরগীতে কয়টি ক্রোমোজোম থাকে?",
+                options: ["৭৮ টি", "৬০ টি", "৫৪ টি", "৪৮ টি"],
+                correct: 0,
+                rationale: "মুরগীতে '৭৮ টি' ক্রোমোজোম থাকে।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৪৩) ভেড়াতে কয়টি ক্রোমোজোম থাকে?",
+                options: ["৫৪ টি", "৬০ টি", "৪৮ টি", "৪২ টি"],
+                correct: 0,
+                rationale: "ভেড়াতে '৫৪ টি' (২৭ জোড়া) ক্রোমোজোম থাকে।"
+            },
+            {
+                category: "জিনতত্ত্ব ও ডিএনএ",
+                question: "৪৪) DNA অণুতে নিচের কোনটি অনুপস্থিত থাকে?",
+                options: ["ইউরাসিল", "থায়ামিন", "এডেনিন", "গুয়ানিন"],
+                correct: 0,
+                rationale: "DNA-তে 'ইউরাসিল' থাকে না (এর বদলে থায়ামিন থাকে)।"
+            },
+            {
+                category: "জিনতত্ত্ব ও ডিএনএ",
+                question: "৪৫) RNA এর প্রধান কাজ কি?",
+                options: ["প্রোটিন তৈরি করা", "শক্তি উৎপাদন", "কোষীয় বর্জ্য অপসারণ", "ডিএনএ ধারণ"],
+                correct: 0,
+                rationale: "RNA এর প্রধান কাজ হলো 'প্রোটিন সংশ্লেষ বা তৈরি করা'।"
+            },
+            {
+                category: "জিনতত্ত্ব ও ডিএনএ",
+                question: "৪৬) RNA তে নিচের কোন নাইট্রেজিনাস বেস থাকে না?",
+                options: ["থায়ামিন", "ইউরাসিল", "সাইটোসিন", "এডেনিন"],
+                correct: 0,
+                rationale: "RNA-তে 'থায়ামিন' থাকে না (এর বদলে ইউরাসিল থাকে)।"
+            },
+            {
+                category: "জিনতত্ত্ব ও ডিএনএ",
+                question: "৪৭) মানবদেহে জিনের (Gene) আনুমানিক সংখ্যা কত?",
+                options: ["৪০০০০", "২০০০", "১০০০০০", "১০০০০"],
+                correct: 0,
+                rationale: "মানবদেহে জিনের সংখ্যা আনুমানিক প্রায় '৪০০০০' (বা ক্ষেত্রবিশেষে ২০,০০০-২৫,০০০)।"
+            },
+            {
+                category: "স্বাস্থ্য ও রোগব্যাধি",
+                question: "৪৮) নিচের কোনটি পুরোপুরি ভাইরাসজনিত রোগের দল?",
+                options: [
+                    "হাম, বসন্ত, পোলিও, এইডস, হেপাটাইটিস",
+                    "কলেরা, টাইফয়েড, যক্ষ্মা, নিউমোনিয়া",
+                    "যক্ষ্মা, পোলিও, ডিপথেরিয়া, কুষ্ঠ",
+                    "হাম, টাইফয়েড, নিউমোনিয়া, এইডস"
+                ],
+                correct: 0,
+                rationale: "হাম, বসন্ত, পোলিও, ইনফ্লুয়েঞ্জা, জলাতঙ্ক, হার্পিস, মাম্পস, এইডস, হেপাটাইটিস ইত্যাদি ভাইরাসজনিত রোগ।"
+            },
+            {
+                category: "স্বাস্থ্য ও রোগব্যাধি",
+                question: "৪৯) নিচের কোনটি প্রধানত ব্যাকটেরিয়াজনিত রোগ?",
+                options: [
+                    "কলেরা, টাইফয়েড, কুষ্ঠ, যক্ষ্মা, ডিপথেরিয়া, নিউমোনিয়া",
+                    "হাম, বসন্ত, পোলিও, ইনফ্লুয়েঞ্জা",
+                    "এইডস, জলাতঙ্ক, মাম্পস, হেপাটাইটিস",
+                    "জলাতঙ্ক, টাইফয়েড, পোলিও, ডায়রিয়া"
+                ],
+                correct: 0,
+                rationale: "কলেরা, টাইফয়েড, কুষ্ঠ, যক্ষ্মা, ডিপথেরিয়া, নিউমোনিয়া এগুলো ব্যাকটেরিয়ার কারণে ঘটে।"
+            },
+            {
+                category: "উদ্ভিদবিজ্ঞান",
+                question: "৫০) মরুভূমিতে জন্মানো উদ্ভিদকে কী বলা হয়?",
+                options: ["জেরোফাইট", "হাইড্রোফাইট", "মেসোফাইট", "হ্যালোফাইট"],
+                correct: 0,
+                rationale: "মরুভূমির শুষ্ক পরিবেশে জন্মানো উদ্ভিদকে 'জেরোফাইট' (Xerophyte) বলে।"
+            },
+            {
+                category: "উদ্ভিদবিজ্ঞান",
+                question: "৫১) সূর্যালোকিত বর্ষায় ধান গাছের সালোক সংশ্লেষণের হার কিসের দ্বারা নিয়ন্ত্রিত হয়?",
+                options: ["কার্বন ডাই অক্সাইডের ঘনত্ব", "অক্সিজেনের ঘনত্ব", "মাটির আর্দ্রতা", "তাপমাত্রা"],
+                correct: 0,
+                rationale: "ধান গাছের সালোকসংশ্লেষণের হার প্রধানত 'কার্বন ডাই অক্সাইডের ঘনত্ব' দ্বারা নিয়ন্ত্রিত হয়।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৫২) টিকটিকির লেজ খসে যাওয়ার কারণ কি?",
+                options: ["ভয় পেলে বা আত্মরক্ষার্থে", "রোগের কারণে", "বয়স বৃদ্ধি পেলে", "খাদ্য সঞ্চয়ের জন্য"],
+                correct: 0,
+                rationale: "টিকটিকি ভয় পেলে বা শত্রুর হাত থেকে বাঁচতে স্বতঃস্ফূর্তভাবে লেজ খসিয়ে দেয়।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৫৩) বিশ্বের সবচেয়ে বিষাক্ত প্রাণীর নাম কি?",
+                options: ["Sea Wasp (সমুদ্র বোলতা)", "কিং কোবরা", "ব্ল্যাক ম্যাম্বা", "বক্স জেলিফিস (সাধারণ)"],
+                correct: 0,
+                rationale: "Sea Wasp বা সমুদ্র বোলতা (এক ধরনের অতি বিষাক্ত জেলিফিস) বিশ্বের সবচেয়ে বিষাক্ত প্রাণী।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৫৪) 'এমিবা' (Amoeba) শব্দের অর্থ কি?",
+                options: ["সর্বদা পরিবর্তনশীল", "ক্ষুদ্রতম জীব", "প্রথম প্রাণী", "এককোষী জীব"],
+                correct: 0,
+                rationale: "'এমিবা' শব্দটির অর্থ হলো 'সর্বদা পরিবর্তনশীল'।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৫৫) 'প্রোটোজোয়া' (Protozoa) শব্দের অর্থ কি?",
+                options: ["প্রথম প্রাণী", "সর্বদা পরিবর্তনশীল", "অমেরুদণ্ডী", "বহুকোষী"],
+                correct: 0,
+                rationale: "'প্রোটোজোয়া' শব্দের আক্ষরিক অর্থ হলো 'প্রথম প্রাণী'।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৫৬) কোন প্রাণী কোনো শব্দ/আওয়াজ করতে পারে না?",
+                options: ["জিরাফ", "হরিণ", "উট", "ক্যাঙ্গারু"],
+                correct: 0,
+                rationale: "'জিরাফ' শব্দযন্ত্র বা ভোকাল কর্ডের বিশেষত্বের কারণে শব্দ করতে পারে না।"
+            },
+            {
+                category: "স্বাস্থ্য ও রোগব্যাধি",
+                question: "৫৭) নিউমোনিয়া রোগের পরোক্ষ কারণ নিচের কোনটি হতে পারে?",
+                options: ["গোলকৃমি", "ফিতাকৃমি", "হুকওয়ার্ম", "এমিবা"],
+                correct: 0,
+                rationale: "গোলকৃমির লার্ভা ফুসফুসের মধ্য দিয়ে ভ্রমণের সময় নিউমোনিয়ার পরোক্ষ কারণ সৃষ্টি করতে পারে।"
+            },
+            {
+                category: "প্রাণীবিজ্ঞান",
+                question: "৫৮) রাতের বেলা বিড়াল ও কুকুরের চোখ জ্বলজ্বল করে কেন?",
+                options: ["টেপেটোম নামক রঞ্জক কোষের জন্য", "মেনিনজেস পর্দার জন্য", "ফসফরাসের জন্য", "রেটিনার বিশেষ এসিডের জন্য"],
+                correct: 0,
+                rationale: "চোখের পিছনে 'টেপেটোম' (Tapetum lucidum) নামক প্রতিফলক রঞ্জক স্তর থাকার কারণে চোখ জ্বলে।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৫৯) মস্তিষ্কের বহিরাবরণী পর্দার নাম কি?",
+                options: ["মেনিনজেস", "পেরিকার্ডিয়াম", "প্লুরা", "গ্লিসনস ক্যাপসুল"],
+                correct: 0,
+                rationale: "মস্তিষ্ককে আবৃত করে রাখা পর্দা হলো 'মেনিনজেস'।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬০) হৃদপিন্ডের বহিরাবরণী পর্দার নাম কি?",
+                options: ["পেরিকার্ডিয়াম", "মেনিনজেস", "প্লুরা", "পেরি অস্টিয়াম"],
+                correct: 0,
+                rationale: "হৃদপিন্ডের আবরণী পর্দার নাম 'পেরিকার্ডিয়াম'।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬১) ফুসফুসের বহিরাবরণী পর্দার নাম কি?",
+                options: ["প্লুরা", "মেনিনজেস", "পেরিকার্ডিয়াম", "পেরিকন্ড্রিয়াম"],
+                correct: 0,
+                rationale: "ফুসফুসের দ্বিস্তরী আবরণী পর্দার নাম 'প্লুরা'।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬২) যকৃতের আবরণী পর্দার নাম কি?",
+                options: ["গ্লিসনস ক্যাপসুল", "মেনিনজেস", "প্লুরা", "পেরিকার্ডিয়াম"],
+                correct: 0,
+                rationale: "যকৃতের চারপাশের পাতলা আবরণীকে 'গ্লিসনস ক্যাপসুল' বলে।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬৩) অস্থির (Bone) বহিরাবরণী পর্দার নাম কি?",
+                options: ["পেরি অস্টিয়াম", "পেরিকন্ড্রিয়াম", "প্লুরা", "মেনিনজেস"],
+                correct: 0,
+                rationale: "অস্থির ওপরের পর্দাকে 'পেরি অস্টিয়াম' বলে।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬৪) তরুণাস্থির (Cartilage) বহিরাবরণী পর্দার নাম কি?",
+                options: ["পেরিকন্ড্রিয়াম", "পেরি অস্টিয়াম", "গ্লিসনস ক্যাপসুল", "প্লুরা"],
+                correct: 0,
+                rationale: "তরুণাস্থির চারপাশের আবরণকে 'পেরিকন্ড্রিয়াম' বলে।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬৫) স্নায়ুতন্ত্রের গাঠনিক ও কার্যগত একক কি?",
+                options: ["নিউরন", "নেফ্রন", "এলভিওলাই", "হেপাটোসাইট"],
+                correct: 0,
+                rationale: "স্নায়ুতন্ত্রের একক হলো 'নিউরন'।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬৬) রেচনতন্ত্রের গাঠনিক ও কার্যগত একক কি?",
+                options: ["নেফ্রন", "নিউরন", "অস্থি", "এলভিওলাই"],
+                correct: 0,
+                rationale: "বৃক্ক বা রেচনতন্ত্রের একক হলো 'নেফ্রন'।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬৭) কঙ্কালতন্ত্রের প্রধান গাঠনিক একক কি?",
+                options: ["অস্থি", "তরুণাস্থি", "নিউরন", "নেফ্রন"],
+                correct: 0,
+                rationale: "কঙ্কালতন্ত্রের মূল গাঠনিক একক হলো 'অস্থি' (Bone)।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৬৮) যকৃতের গাঠনিক ও কার্যগত একক কি?",
+                options: ["হেপাটোসাইট", "নেফ্রন", "নিউরন", "এলভিওলাই"],
+                correct: 0,
+                rationale: "যকৃতের মূল কোষ বা একককে 'হেপাটোসাইট' বলা হয়।"
+            },
+            {
+                category: "ভৌগোলিক বিজ্ঞান",
+                question: "৬৯) উত্তর গোলার্ধে দীর্ঘতম দিন কবে ঘটে?",
+                options: ["২১ জুন", "২২ ডিসেম্বর", "২৩ সেপ্টেম্বর", "২১ মার্চ"],
+                correct: 0,
+                rationale: "উত্তর গোলার্ধে সবচেয়ে দীর্ঘতম দিন ও ক্ষুদ্রতম রাত হলো '২১ জুন'।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৭০) ফুসফুসের গাঠনিক ও কার্যগত একক কি?",
+                options: ["এলভিওলাই", "নেফ্রন", "নিউরন", "হেপাটোসাইট"],
+                correct: 0,
+                rationale: "ফুসফুসের বায়ুকুণ্ডলী বা ক্ষুদ্রতম একক হলো 'এলভিওলাই' (Alveoli)।"
+            },
+            {
+                category: "মানব শারীরবিজ্ঞান",
+                question: "৭১) মানবদেহে পানির পরিমাণ শতকরা কত শতাংশ?",
+                options: ["৬০% থেকে ৭০%", "৫০% থেকে ৫৫%", "৮০% থেকে ৯০%", "৪৫% থেকে ৫০%"],
+                correct: 0,
+                rationale: "মানবদেহে গড়ে '৬০% থেকে ৭০%' পানি থাকে।"
+            }
+        ];
+
+        // Shuffle options for questions, but keep track of correct answer
+        const processedQuizData = quizData.map((q, idx) => {
+            let optionsWithStatus = q.options.map((opt, i) => ({
+                text: opt,
+                isCorrect: i === q.correct
+            }));
+            
+            // Deterministic pseudo-random shuffle to vary option positions per question
+            for (let i = optionsWithStatus.length - 1; i > 0; i--) {
+                const j = (idx * 7 + i * 3) % optionsWithStatus.length;
+                [optionsWithStatus[i], optionsWithStatus[j]] = [optionsWithStatus[j], optionsWithStatus[i]];
+            }
+
+            return {
+                ...q,
+                shuffledOptions: optionsWithStatus,
+                userSelectedIndex: null,
+                isAnswered: false
+            };
+        });
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const q = processedQuizData[currentQuestion];
+            
+            document.getElementById('q-num').innerText = currentQuestion + 1;
+            document.getElementById('question-text').innerText = q.question;
+            document.getElementById('category-badge').innerText = q.category;
+            document.getElementById('progress-text').innerText = `প্রশ্ন ${currentQuestion + 1} / ${processedQuizData.length}`;
+            
+            const progressPercent = ((currentQuestion + 1) / processedQuizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            q.shuffledOptions.forEach((opt, idx) => {
+                const btn = document.createElement('div');
+                btn.className = `option-item border-2 rounded-xl p-4 cursor-pointer transition flex items-center justify-between ${
+                    q.userSelectedIndex === idx ? 'border-indigo-600 bg-indigo-50' : 'border-slate-200 hover:border-slate-300 bg-white'
+                }`;
+                btn.onclick = () => selectOption(idx);
+
+                let badge = '';
+                if (q.isAnswered) {
+                    if (opt.isCorrect) {
+                        btn.className = 'border-2 rounded-xl p-4 bg-emerald-50 border-emerald-500 flex items-center justify-between';
+                        badge = '<i class="fas fa-check-circle text-emerald-600 text-lg"></i>';
+                    } else if (q.userSelectedIndex === idx) {
+                        btn.className = 'border-2 rounded-xl p-4 bg-rose-50 border-rose-500 flex items-center justify-between';
+                        badge = '<i class="fas fa-times-circle text-rose-600 text-lg"></i>';
+                    }
+                }
+
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-xs font-bold text-slate-600">
+                            ${String.fromCharCode(65 + idx)}
+                        </span>
+                        <span class="text-sm md:text-base text-slate-800 font-medium">${opt.text}</span>
+                    </div>
+                    ${badge}
+                `;
+                container.appendChild(btn);
+            });
+
+            // Handle Buttons & Explanation
+            const expBox = document.getElementById('explanation-box');
+            const submitBtn = document.getElementById('submit-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (q.isAnswered) {
+                expBox.classList.remove('hidden');
+                document.getElementById('explanation-text').innerText = q.rationale;
+                if (q.shuffledOptions[q.userSelectedIndex]?.isCorrect) {
+                    expBox.className = "p-4 rounded-xl mb-6 text-sm border bg-emerald-50 border-emerald-200 text-emerald-900";
+                    document.getElementById('explanation-title').className = "font-bold mb-1 flex items-center gap-2 text-emerald-700";
+                } else {
+                    expBox.className = "p-4 rounded-xl mb-6 text-sm border bg-rose-50 border-rose-200 text-rose-900";
+                    document.getElementById('explanation-title').className = "font-bold mb-1 flex items-center gap-2 text-rose-700";
+                }
+                submitBtn.classList.add('hidden');
+                nextBtn.classList.remove('hidden');
+            } else {
+                expBox.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+                nextBtn.classList.add('hidden');
+            }
+
+            document.getElementById('prev-btn').disabled = currentQuestion === 0;
+        }
+
+        function selectOption(index) {
+            if (processedQuizData[currentQuestion].isAnswered) return;
+            processedQuizData[currentQuestion].userSelectedIndex = index;
+            loadQuestion();
+        }
+
+        function checkAnswer() {
+            const q = processedQuizData[currentQuestion];
+            if (q.userSelectedIndex === null) {
+                alert('দয়া করে একটি উত্তর নির্বাচন করুন!');
+                return;
+            }
+
+            q.isAnswered = true;
+            if (q.shuffledOptions[q.userSelectedIndex].isCorrect) {
+                score++;
+                document.getElementById('score-display').innerText = `${score} / ৭১`;
+            }
+
+            loadQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < processedQuizData.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-card').classList.add('hidden');
+            document.getElementById('result-card').classList.remove('hidden');
+            
+            document.getElementById('res-total').innerText = processedQuizData.length;
+            document.getElementById('res-correct').innerText = score;
+            document.getElementById('res-wrong').innerText = processedQuizData.length - score;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('score-display').innerText = `০ / ৭১`;
+            processedQuizData.forEach(q => {
+                q.userSelectedIndex = null;
+                q.isAnswered = false;
+            });
+            document.getElementById('result-card').classList.add('hidden');
+            document.getElementById('quiz-card').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // Initialize Quiz
+        loadQuestion();
+    </script>
+</body>
+</html>
