@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>রক্ত ও সঞ্চালন - প্রিমিয়াম বায়োলজি কুইজ</title>
+    <title>Medical Admission Quiz Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-body: #0b0f19;
             --bg-card: #151c2c;
             --bg-card-hover: #1e293b;
-            --accent-green: #10b981;
-            --accent-green-glow: rgba(16, 185, 129, 0.25);
-            --accent-red: #ef4444;
             --accent-blue: #3b82f6;
             --accent-purple: #8b5cf6;
             --text-primary: #f8fafc;
@@ -26,7 +23,6 @@
             margin: 0;
             padding: 0;
             font-family: 'Hind Siliguri', sans-serif;
-            user-select: none;
         }
 
         body {
@@ -37,598 +33,114 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 700px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 24px;
-        }
-
-        .title-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .badge {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: white;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            padding: 40px;
+            text-align: center;
         }
 
         h1 {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
+            font-size: 26px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .keyboard-hint {
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .chapter-list {
             display: flex;
-            gap: 6px;
+            flex-direction: column;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .chapter-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .chapter-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .chapter-info h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .chapter-info span {
             font-size: 13px;
             color: var(--text-secondary);
         }
 
-        kbd {
-            background: #222e45;
-            border: 1px solid #475569;
-            border-radius: 4px;
-            padding: 1px 6px;
-            font-size: 11px;
-            color: #f1f5f9;
-            box-shadow: 0 2px 0 #0f172a;
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 6px;
-            background: #1e293b;
-            border-radius: 10px;
-            margin-bottom: 24px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
-            transition: width 0.3s ease;
-        }
-
-        .question-stats {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .question-text {
-            font-size: 20px;
-            font-weight: 600;
-            line-height: 1.5;
-            margin-bottom: 28px;
-            color: var(--text-primary);
-        }
-
-        .options-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 28px;
-        }
-
-        .option-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1.5px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .option-card:hover {
-            background: var(--bg-card-hover);
-            border-color: #475569;
-            transform: translateY(-1px);
-        }
-
-        .option-card.selected {
-            border-color: var(--accent-blue);
-            background: rgba(59, 130, 246, 0.1);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
-        }
-
-        .option-card.correct {
-            border-color: var(--accent-green) !important;
-            background: rgba(16, 185, 129, 0.12) !important;
-            box-shadow: 0 0 15px var(--accent-green-glow) !important;
-        }
-
-        .option-card.incorrect {
-            border-color: var(--accent-red) !important;
-            background: rgba(239, 68, 68, 0.12) !important;
-        }
-
-        .option-key {
-            width: 32px;
-            height: 32px;
-            background: #1e293b;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--text-secondary);
-            flex-shrink: 0;
-            transition: all 0.2s ease;
-        }
-
-        .option-card.selected .option-key {
-            background: var(--accent-blue);
-            color: white;
-            border-color: var(--accent-blue);
-        }
-
-        .option-card.correct .option-key {
-            background: var(--accent-green);
-            color: white;
-            border-color: var(--accent-green);
-        }
-
-        .option-card.incorrect .option-key {
-            background: var(--accent-red);
-            color: white;
-            border-color: var(--accent-red);
-        }
-
-        .option-val {
-            font-size: 16px;
-            font-weight: 500;
-            flex-grow: 1;
-        }
-
-        .explanation-box {
-            background: rgba(30, 41, 59, 0.7);
-            border-left: 4px solid var(--accent-blue);
-            padding: 16px 20px;
-            border-radius: 0 12px 12px 0;
-            margin-bottom: 28px;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .explanation-title {
-            font-size: 14px;
-            font-weight: 700;
+        .badge {
+            background: rgba(59, 130, 246, 0.15);
             color: var(--accent-blue);
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .explanation-text {
-            font-size: 14px;
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, var(--accent-blue), #2563eb);
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            font-size: 16px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 600;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn:hover {
-            opacity: 0.95;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn:disabled {
-            background: #334155;
-            color: #64748b;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-
-        .score-board {
-            text-align: center;
-            padding: 40px 20px;
-            display: none;
-        }
-
-        .score-circle {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: conic-gradient(var(--accent-green) 0%, #1e293b 0%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 24px;
-            position: relative;
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
-        }
-
-        .score-circle-inner {
-            width: 120px;
-            height: 120px;
-            background: var(--bg-card);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .score-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .score-label {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 640px) {
-            .container { padding: 20px; }
-            .header { flex-direction: column; align-items: flex-start; gap: 12px; }
-            .keyboard-hint { display: none; }
-            .question-text { font-size: 17px; }
-            .option-card { padding: 12px 16px; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div id="quiz-screen">
-        <div class="header">
-            <div class="title-badge">
-                <span class="badge">Biology</span>
-                <h1>রক্ত ও সঞ্চালন</h1>
+    <h1>Medical Admission Quiz Portal</h1>
+    <p>আপনার সিলেবাসের বিভিন্ন অধ্যায়ের ওপর তৈরি ইন্টারেক্টিভ কুইজসমূহ</p>
+
+.    <div class="chapter-list">
+        <!-- ১. রক্ত ও সঞ্চালন কুইজ -->
+        <a href="blood.html" class="chapter-card">
+            <div class="chapter-info">
+                <h3>অধ্যায় ১: রক্ত ও সঞ্চালন</h3>
+                <span>রক্ত কণিকা, হৃৎপিণ্ড ও রোগ নির্ণয়</span>
             </div>
-            <div class="keyboard-hint">
-                <span>কিবোর্ড:</span>
-                <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd>
-                <span>নির্বাচন</span> | 
-                <kbd>Enter</kbd>
-                <span>পরবর্তী</span>
+            <div class="badge">শুরু করুন →</div>
+        </a>
+
+        <!-- ২. ফলমূলের এসিড কুইজ -->
+        <a href="not_to_miss.html" class="chapter-card">
+            <div class="chapter-info">
+                <h3>অধ্যায় ২: ফলমূলের গুরুত্বপূর্ণ এসিড</h3>
+                <span>বিভিন্ন ফলে উপস্থিত জৈব এসিডসমূহ</span>
             </div>
-        </div>
+            <div class="badge">শুরু করুন →</div>
+        </a>
 
-        <div class="question-stats">
-            <span id="question-count">প্রশ্ন ১ / ১০</span>
-            <span id="score-count">স্কোর: ০</span>
-        </div>
-
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-
-        <div class="question-text" id="question-text">প্রশ্ন লোড হচ্ছে...</div>
-
-        <div class="options-grid" id="options-container"></div>
-
-        <div class="explanation-box" id="explanation-box">
-            <div class="explanation-title">💡 ব্যাখ্যা ও সম্পর্কিত নোট:</div>
-            <div class="explanation-text" id="explanation-text"></div>
-        </div>
-
-        <div class="footer">
-            <span style="font-size: 13px; color: var(--text-secondary);" id="status-hint">একটি উত্তর নির্বাচন করুন</span>
-            <button class="btn" id="action-btn" disabled onclick="handleAction()">
-                <span>জমা দিন</span>
-                <kbd style="background: rgba(255,255,255,0.2); border: none; box-shadow: none;">↵</kbd>
-            </button>
-        </div>
-    </div>
-
-    <div class="score-board" id="score-screen">
-        <h2 style="font-size: 28px; margin-bottom: 8px;">কুইজ সম্পন্ন হয়েছে! 🎉</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 32px;">আপনার পারফরম্যান্স রিপোর্ট নিচে দেওয়া হলো</p>
-        
-        <div class="score-circle" id="score-circle">
-            <div class="score-circle-inner">
-                <span class="score-number" id="final-score">০%</span>
-                <span class="score-label" id="score-fraction">০/০ সঠিক</span>
+        <!-- ৩. ভিটামিন কুইজ -->
+        <a href="VIT.html" class="chapter-card">
+            <div class="chapter-info">
+                <h3>অধ্যায় ৩: ভিটামিন ও অভাবজনিত রোগ</h3>
+                <span>রাসায়নিক নাম ও রোগ (কবীর স্যার)</span>
             </div>
-        </div>
-
-        <p id="feedback-text" style="font-size: 18px; font-weight: 600; margin-bottom: 32px; color: var(--accent-green);"></p>
-
-        <button class="btn" style="margin: 0 auto;" onclick="restartQuiz()">
-            <span>পুনরায় চেষ্টা করুন</span>
-        </button>
+            <div class="badge">শুরু করুন →</div>
+        </a>
     </div>
 </div>
-
-<script>
-    const questions = [
-        {
-            question: "নিচের কোনটি লোহিত রক্ত কণিকার (RBC) কাজের অন্তর্ভুক্ত নয়?",
-            options: ["O2 ও CO2 বহন করা", "বাফাররূপে রক্তে অম্ল-ক্ষারের সাম্য রক্ষা", "রক্তনালির অভ্যন্তরে রক্তজমাট রোধ করা", "রক্তের সান্দ্রতা (Viscosity) রক্ষা করা"],
-            correct: 2,
-            explanation: "লোহিত রক্তকণিকার কাজ মনে রাখার টেকনিক: 'ব' দিয়ে — বাফার, ব্লাড গ্রুপ, Viscosity (সান্দ্রতা), বিলিরুবিন ও বিলিভার্ডিন উৎপন্ন করা। কিন্তু রক্তনালির অভ্যন্তরে রক্তজমাট রোধ করা বেসোফিলের কাজ (হেপারিন নিঃসৃত করে)।"
-        },
-        {
-            question: "প্রতি ১০০ মিলিলিটার রক্তে হিমোগ্লোবিনের স্বাভাবিক পরিমাণ কত?",
-            options: ["প্রায় ১২ গ্রাম", "প্রায় ১৬ গ্রাম", "প্রায় ২০ গ্রাম", "প্রায় ২৫ গ্রাম"],
-            correct: 1,
-            explanation: "প্রতি ১০০ মিলিলিটার রক্তে হিমোগ্লোবিন থাকে প্রায় ১৬ গ্রাম। এছাড়া রক্তরসে পানির পরিমাণ ৯০% এবং প্লাজমার পরিমাণ দেহের ওজনের ৫%।"
-        },
-        {
-            question: "অস্থিমজ্জার কোন কোষ থেকে গ্র্যানিউলোসাইট (দানাদার শ্বেত রক্তকণিকা) উৎপন্ন হয়?",
-            options: ["মায়েলোব্লাস্ট", "লিম্ফোব্লাস্ট", "মেগাক্যারিওসাইট", "এরিথ্রোব্লাস্ট"],
-            correct: 0,
-            explanation: "অস্থিমজ্জার 'মায়েলোব্লাস্ট' কোষ থেকে গ্র্যানিউলোসাইট উৎপন্ন হয়। এদের নিউক্লিয়াস ২-৭টি খণ্ডযুক্ত এবং আয়ুষ্কাল মাত্র ৪-৮ ঘণ্টা।"
-        },
-        {
-            question: "হেপারিন উৎপন্ন করে রক্তনালির অভ্যন্তরে রক্তজমাট বাধতে বাধা দেয় কোনটি?",
-            options: ["নিউট্রোফিল", "অণুচক্রিকা", "ইওসিনোফিল", "বেসোফিল"],
-            correct: 3,
-            explanation: "বেসোফিল হেপারিন উৎপন্ন করে রক্তনালির অভ্যন্তরে রক্ত জমাট বাঁধতে দেয় না। প্রতি মাইক্রোলিটারে বেসোফিল থাকে ৩৫টি এবং নিউট্রোফিল থাকে ৪৯০০টি।"
-        },
-        {
-            question: "প্রতিদিন মানবদেহে প্রায় কত সংখ্যক অণুচক্রিকা উৎপন্ন হয়?",
-            options: ["১০০ বিলিয়ন", "২০০ বিলিয়ন (২০ হাজার কোটি)", "৫০-৭৫ হাজার", "২৬০০ মিলিয়ন"],
-            correct: 1,
-            explanation: "প্রতিদিন অণুচক্রিকা উৎপন্ন হয় প্রায় ২০০ বিলিয়ন (২০ হাজার কোটি)। অণুচক্রিকার আয়ুষ্কাল ৮-১২ দিন এবং এটি অস্থায়ী প্লেইটলেট প্লাগ সৃষ্টির মাধ্যমে রক্তপাত বন্ধ করে।"
-        },
-        {
-            question: "মানুষের স্বাভাবিক রক্ততঞ্চনকাল (Blood Clotting Time) কত মিনিট?",
-            options: ["১-৪ মিনিট", "৩-৮ মিনিট", "৫-৩০ মিনিট", "১০-১৫ মিনিট"],
-            correct: 1,
-            explanation: "মানুষের স্বাভাবিক রক্ততঞ্চনকাল হলো ৩-৮ মিনিট এবং স্বাভাবিক রক্তক্ষরণকাল (Bleeding time) হলো ১-৪ মিনিট।"
-        },
-        {
-            question: "হৃৎপিণ্ডের সংরক্ষিত ছন্দ নিয়ামক (Reserved Pacemaker) কাকে বলা হয়?",
-            options: ["SAN (Sino-Atrial Node)", "AVN (Atrio-Ventricular Node)", "হিজের বান্ডল", "পারকিঞ্জি তন্তু"],
-            correct: 1,
-            explanation: "AVN-কে বলা হয় সংরক্ষিত ছন্দ নিয়ামক (মিনিটে স্পন্দন ৫০ বার)। প্রাথমিক ছন্দ নিয়ামক হলো SAN (মিনিটে স্পন্দন ৭২ বার) এবং হিজের বান্ডলের স্পন্দন হার ৩৬ বার/মিনিট।"
-        },
-        {
-            question: "ইনফিরিয়র ভেনাকাভা ও ডান অলিন্দের সংযোগস্থলে কোন কপাটিকা (Valve) থাকে?",
-            options: ["বাইকাসপিড", "ট্রাইকাসপিড", "ইউস্টেশিয়ান", "থিবেসিয়ান"],
-            correct: 2,
-            explanation: "ইউস্টেশিয়ান কপাটিকা ইনফিরিয়র ভেনাকাভা ও ডান অলিন্দের সংযোগস্থলে থাকে। থিবেসিয়ান থাকে করোনারি সাইনাস ও ডান অলিন্দের মাঝে।"
-        },
-        {
-            question: "হৃৎপিণ্ডের কোন স্তরটি যোজক টিস্যু দ্বারা নির্মিত এবং কপাটিকাগুলোকে ঢেকে রাখে?",
-            options: ["এপিকার্ডিয়াম", "মায়োকার্ডিয়াম", "এন্ডোকার্ডিয়াম", "পেরিকার্ডিয়াম"],
-            correct: 2,
-            explanation: "এন্ডোকার্ডিয়াম হলো যোজক টিস্যু নির্মিত হৃৎপিণ্ডের অন্তঃস্থ স্তর যা কপাটিকাগুলোকে ঢেকে রাখে। মাইওকার্ডিয়াম সংকোচন-প্রসারণে ভূমিকা রাখে এবং এপিকার্ডিয়ামে চর্বি লেগে থাকে।"
-        },
-        {
-            question: "হার্ট ফেইলিওর (Heart Failure) সম্পর্কে সুনিশ্চিত হতে কোন পরীক্ষাটি করা হয়?",
-            options: ["ECG", "Coronary Angiogram", "Blood BNP", "Troponin-I"],
-            correct: 2,
-            explanation: "Blood BNP (Brain Natriuretic Peptide) দিয়ে হার্ট ফেইলিওর নিশ্চিত হওয়া যায়। ট্রোপোনিন-আই (Troponin-I) দিয়ে হার্ট অ্যাটাক নিশ্চিত হওয়া যায় এবং করোনারি এনজিওগ্রাম দিয়ে রক্তনালীর ব্লক দেখা হয়।"
-        }
-    ];
-
-    let currentQ = 0;
-    let score = 0;
-    let selectedOption = null;
-    let isSubmitted = false;
-
-    const questionText = document.getElementById('question-text');
-    const optionsContainer = document.getElementById('options-container');
-    const questionCount = document.getElementById('question-count');
-    const scoreCount = document.getElementById('score-count');
-    const progressBar = document.getElementById('progress-bar');
-    const explanationBox = document.getElementById('explanation-box');
-    const explanationText = document.getElementById('explanation-text');
-    const actionBtn = document.getElementById('action-btn');
-    const statusHint = document.getElementById('status-hint');
-
-    function loadQuestion() {
-        isSubmitted = false;
-        selectedOption = null;
-        
-        const q = questions[currentQ];
-        questionText.textContent = `${currentQ + 1}. ${q.question}`;
-        
-        questionCount.textContent = `প্রশ্ন ${currentQ + 1} / ${questions.length}`;
-        scoreCount.textContent = `স্কোর: ${score}`;
-        progressBar.style.width = `${((currentQ) / questions.length) * 100}%`;
-        
-        explanationBox.style.display = 'none';
-        actionBtn.disabled = true;
-        actionBtn.querySelector('span').textContent = 'জমা দিন';
-        statusHint.textContent = 'কিবোর্ডের ১-৪ অথবা মাউস দিয়ে নির্বাচন করুন';
-
-        optionsContainer.innerHTML = '';
-        q.options.forEach((opt, idx) => {
-            const card = document.createElement('div');
-            card.className = 'option-card';
-            card.onclick = () => selectOption(idx);
-            
-            card.innerHTML = `
-                <div class="option-key">${idx + 1}</div>
-                <div class="option-val">${opt}</div>
-            `;
-            optionsContainer.appendChild(card);
-        });
-    }
-
-    function selectOption(index) {
-        if (isSubmitted) return;
-        
-        selectedOption = index;
-        const cards = optionsContainer.querySelectorAll('.option-card');
-        cards.forEach((card, i) => {
-            if (i === index) {
-                card.classList.add('selected');
-            } else {
-                card.classList.remove('selected');
-            }
-        });
-
-        actionBtn.disabled = false;
-        statusHint.textContent = 'জমা দিতে Enter চাপুন';
-    }
-
-    function handleAction() {
-        if (!isSubmitted) {
-            submitAnswer();
-        } else {
-            nextQuestion();
-        }
-    }
-
-    function submitAnswer() {
-        if (selectedOption === null || isSubmitted) return;
-        
-        isSubmitted = true;
-        const q = questions[currentQ];
-        const cards = optionsContainer.querySelectorAll('.option-card');
-
-        cards[selectedOption].classList.remove('selected');
-
-        if (selectedOption === q.correct) {
-            cards[selectedOption].classList.add('correct');
-            score++;
-            scoreCount.textContent = `স্কোর: ${score}`;
-        } else {
-            cards[selectedOption].classList.add('incorrect');
-            cards[q.correct].classList.add('correct');
-        }
-
-        explanationText.textContent = q.explanation;
-        explanationBox.style.display = 'block';
-
-        actionBtn.querySelector('span').textContent = 'পরবর্তী প্রশ্ন';
-        statusHint.textContent = 'পরবর্তী প্রশ্নে যেতে Enter চাপুন';
-    }
-
-    function nextQuestion() {
-        currentQ++;
-        if (currentQ < questions.length) {
-            loadQuestion();
-        } else {
-            showScoreScreen();
-        }
-    }
-
-    function showScoreScreen() {
-        document.getElementById('quiz-screen').style.display = 'none';
-        const scoreScreen = document.getElementById('score-screen');
-        scoreScreen.style.display = 'block';
-
-        const percentage = Math.round((score / questions.length) * 100);
-        document.getElementById('final-score').textContent = `${percentage}%`;
-        document.getElementById('score-fraction').textContent = `${score}/${questions.length} সঠিক`;
-
-        const circle = document.getElementById('score-circle');
-        circle.style.background = `conic-gradient(var(--accent-green) ${percentage}%, #1e293b ${percentage}%)`;
-
-        const feedback = document.getElementById('feedback-text');
-        if (percentage >= 80) {
-            feedback.textContent = "অসাধারণ! মেডিকেল প্রস্তুতির জন্য দারুণ পারফরম্যান্স! 🚀";
-            feedback.style.color = "var(--accent-green)";
-        } else if (percentage >= 50) {
-            feedback.textContent = "ভালো হয়েছে! আর কিছু রিভিশন দিলে আরও দারুণ হবে। 👍";
-            feedback.style.color = "var(--accent-blue)";
-        } else {
-            feedback.textContent = "নোটটি আরেকবার ভালোভাবে পড়ে আবার চেষ্টা করুন। 💪";
-            feedback.style.color = "var(--accent-red)";
-        }
-    }
-
-    function restartQuiz() {
-        currentQ = 0;
-        score = 0;
-        document.getElementById('score-screen').style.display = 'none';
-        document.getElementById('quiz-screen').style.display = 'block';
-        loadQuestion();
-    }
-
-    // Keyboard Navigation
-    document.addEventListener('keydown', (e) => {
-        if (document.getElementById('score-screen').style.display === 'block') {
-            if (e.key === 'Enter') restartQuiz();
-            return;
-        }
-
-        if (['1', '2', '3', '4'].includes(e.key)) {
-            const index = parseInt(e.key) - 1;
-            if (index < questions[currentQ].options.length) {
-                selectOption(index);
-            }
-        } else if (e.key === 'Enter') {
-            if (!actionBtn.disabled) {
-                handleAction();
-            }
-        }
-    });
-
-    // Start Quiz
-    loadQuestion();
-</script>
 
 </body>
 </html>
