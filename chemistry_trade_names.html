@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chemical Trade Names & Formulas - Medical Admission Quiz</title>
+    <title>Complete Chemical Trade Names & Formulas - Medical Admission Quiz</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -349,7 +349,7 @@
         <div class="header">
             <div class="title-badge">
                 <span class="badge">Medical Admission</span>
-                <h1>কেমিক্যাল ট্রেড নেম ও সংকেত (Competitive Drill)</h1>
+                <h1>কম্প্লিট কেমিক্যাল ফর্মুলা ও ট্রেড নেম ড্রিল</h1>
             </div>
             <div class="keyboard-hint">
                 <span>কিবোর্ড:</span>
@@ -361,7 +361,7 @@
         </div>
 
         <div class="question-stats">
-            <span id="question-count">প্রশ্ন ১ / ১০</span>
+            <span id="question-count">প্রশ্ন ১ / ১৫</span>
             <span id="score-count">স্কোর: ০</span>
         </div>
 
@@ -388,8 +388,8 @@
     </div>
 
     <div class="score-screen score-board" id="score-screen">
-        <h2 style="font-size: 28px; margin-bottom: 8px;">ড্রিল সম্পন্ন হয়েছে! 🎉</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 32px;">আপনার পারফরম্যান্স রিপোর্ট নিচে দেওয়া হলো</p>
+        <h2 style="font-size: 28px; margin-bottom: 8px;">মাস্টার ড্রিল সম্পন্ন হয়েছে! 🎉</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 32px;">আপনার সার্বিক পারফরম্যান্স রিপোর্ট নিচে দেওয়া হলো</p>
         
         <div class="score-circle" id="score-circle">
             <div class="score-circle-inner">
@@ -409,94 +409,134 @@
 <script>
     const questions = [
         {
-            question: "ভিট্রিওলের ট্রায়ো (Vitriols Trio) অনুযায়ী 'Green Vitriol' এর সঠিক রাসায়নিক সংকেত কোনটি?",
-            options: ["CuSO₄·5H₂O", "FeSO₄·7H₂O", "ZnSO₄·7H₂O", "MgSO₄·7H₂O"],
+            question: "ট্যাল্ক বা সোপস্টোন (Talc / Soapstone) এর সঠিক রাসায়নিক সংকেত কোনটি?",
+            options: ["3MgO·4SiO₂·H₂O", "Al₂O₃·2SiO₂·2H₂O", "CaCO₃·MgCO₃", "Fe₂O₃"],
+            correct: 0,
+            explanation: "বিশ্লেষণ: ট্যাল্ক বা সোপস্টোন হলো ম্যাগনেশিয়াম স্লিকেট হাইড্রেট, যার সংকেত 3MgO·4SiO₂·H₂O। অন্যদিকে চায়না ক্লে বা কাওলিন হলো Al₂O₃·2SiO₂·2H₂O।"
+        },
+        {
+            question: "চায়না ক্লে বা কাওলিন (China clay / Kaolin) এর সঠিক রাসায়নিক সংকেত নিচের কোনটি?",
+            options: ["K₂O·PbO·6SiO₂", "Al₂O₃·2SiO₂·2H₂O", "3MgO·4SiO₂·H₂O", "Na₃AlF₆"],
             correct: 1,
-            explanation: "মনে রাখার শর্টকাট ট্রিকস: Blue = কপার (CuSO₄·5H₂O), Green = আয়রন/ফেরাস (FeSO₄·7H₂O), White = জিঙ্ক (ZnSO₄·7H₂O)। এছাড়া সাধারণ FeSO₄ হলো অ্যানহাইড্রাস বা অনার্দ্র, কিন্তু গ্রিন ভিট্রিওলে অবশ্যই ৭ অণু ক্রিস্টাল পানি থাকে।"
+            explanation: "তুলনা: কাওলিন বা চায়না ক্লে হলো অ্যালুমিনিয়াম স্লিকেট হাইড্রেট (Al₂O₃·2SiO₂·2H₂O)। আর লিড গ্লাস বা ফ্লিন্ট গ্লাস হলো K₂O·PbO·6SiO₂।"
         },
         {
-            question: "লাইম ফ্যামিলি (Lime Family) এর ক্ষেত্রে 'Quicklime', 'Slaked lime' ও 'Milk of lime' এর সঠিক ক্রম কোনটি?",
+            question: "ডলোমাইট (Dolomite) এবং ম্যাগনেসাইট (Magnesite) এর সঠিক সংকেতের জোড় কোনটি?",
             options: [
-                "CaO → Ca(OH)₂ → Ca(OH)₂",
-                "Ca(OH)₂ → CaO → CaCO₃",
-                "CaO → CaCO₃ → Ca(OH)₂",
-                "CaCO₃ → CaO → Ca(OH)₂"
+                "Dolomite: CaCO₃·MgCO₃ এবং Magnesite: MgCO₃",
+                "Dolomite: MgCO₃ এবং Magnesite: CaCO₃·MgCO₃",
+                "Dolomite: Fe₂O₃ এবং Magnesite: ZnCO₃",
+                "Dolomite: CaCO₃ এবং Magnesite: CaSO₄·2H₂O"
             ],
             correct: 0,
-            explanation: "ফাস্ট অ্যানালাইসিস: Quicklime হলো ক্যালসিয়াম অক্সাইড (CaO)। এতে পানি যোগ করলে Slaked lime বা পোড়া চুন থেকে কলি চুন অর্থাৎ Ca(OH)₂ তৈরি হয়। আর এই কলি চুনের পাতলা জলীয় সাসপেনশন বা দ্রবণকেই 'Milk of lime = Ca(OH)₂' বলা হয়।"
+            explanation: "শর্টকাট ট্রিক: ডলোমাইটে ক্যালসিয়াম ও ম্যাগনেসিয়াম উভয় কার্বনেটই একসঙ্গে থাকে (CaCO₃·MgCO₃), আর শুধু ম্যাগনেসিয়ামের কার্বনেট হলো ম্যাগনেসাইট (MgCO₃)।"
         },
         {
-            question: "সোডিয়াম কার্বনেটের রূপভেদে 'Soda ash' এবং 'Washing soda' এর সঠিক সংকেত দুটির পার্থক্য কী?",
+            question: "টিএসপি (TSP - Triple superphosphate) এর সঠিক রাসায়নিক সংকেত কোনটি?",
+            options: ["Ca(H₂PO₄)₂", "(NH₄)₂SO₄", "Na₂B₄O₇·10H₂O", "H₃BO₃"],
+            correct: 0,
+            explanation: "বিশ্লেষণ: সার হিসেবে ব্যবহৃত TSP (Triple superphosphate) এর মূল সক্রিয় উপাদান ক্যালসিয়াম ডাইহাইড্রোজেন ফসফেট বা Ca(H₂PO₄)₂।"
+        },
+        {
+            question: "ক্রায়োলাইট (Cryolite) এবং হেমাটাইট (Hematite) এর সংকেতের সঠিক ক্রম কোনটি?",
             options: [
-                "Soda ash: Na₂CO₃ এবং Washing soda: Na₂CO₃·10H₂O",
-                "Soda ash: NaHCO₃ এবং Washing soda: Na₂CO₃",
-                "Soda ash: Na₂CO₃·10H₂O এবং Washing soda: Na₂CO₃",
-                "Soda ash: NaOH এবং Washing soda: Na₂CO₃·10H₂O"
+                "Cryolite: Na₃AlF₆ এবং Hematite: Fe₂O₃",
+                "Cryolite: Fe₂O₃ এবং Hematite: Na₃AlF₆",
+                "Cryolite: ZnCO₃ এবং Hematite: MgCO₃",
+                "Cryolite: CaSO₄·2H₂O এবং Hematite: NaNO₃"
             ],
             correct: 0,
-            explanation: "তুলনামূলক বিশ্লেষণ: সোডা অ্যাশ (Soda ash) হলো অনার্দ্র সোডিয়াম কার্বনেট (Na₂CO₃), আর যখন এতে ১০ অণু কেকাবিহীন ক্রিস্টাল জল যুক্ত হয়, তখন তাকে ওয়াশিং সোডা বা সোডিয়াম কার্বনেট ডেকাহাইড্রেট (Na₂CO₃·10H₂O) বলে।"
+            explanation: "মনে রাখুন: ক্রায়োলাইট হলো সোডিয়াম অ্যালুমিনিয়াম ফ্লোরাইড (Na₃AlF₆ বা 3NaF·AlF₃), যা অ্যালুমিনিয়াম নিষ্কাশনে ব্যবহৃত হয়। আর হেমাটাইট হলো আকরিক লোহা (Fe₂O₃)।"
         },
         {
-            question: "কপার পাইরাইটস বা চালকোপাইরাইট (Chalcopyrite) এর পরীক্ষামূলক সঠিক রাসায়নিক সংকেত কোনটি?",
-            options: ["Cu₂S·Fe₂S₃", "CuFeS₂", "CuCO₃·Cu(OH)₂", "CuSO₄·5H₂O"],
-            correct: 1,
-            explanation: "সতর্কতামূলক কারেকশন: সাধারণ হাতখাতা বা পুরনো নোটে প্রায়ই ভুলবশত Cu₂S·Fe₂S₃ লেখা থাকে, যা আসলে একটি মিক্সড ফর্মুলা। এর আধুনিক ও সঠিক পরীক্ষামূলক সংকেত হলো CuFeS₂ (চালোকোপাইরাইট)।"
-        },
-        {
-            question: "জিপসাম (Gypsum) এবং প্লাস্টার অফ প্যারিস (POP) এর সঠিক সংকেত দুটির অনুপাত কী?",
+            question: "বোরিক এসিড (Boric acid) এবং বোর্যাক্স (Borax) এর সঠিক সংকেত কোনটি?",
             options: [
-                "Gypsum: CaSO₄·2H₂O এবং POP: CaSO₄·½H₂O",
-                "Gypsum: CaSO₄·½H₂O এবং POP: CaSO₄·2H₂O",
-                "Gypsum: MgSO₄·7H₂O এবং POP: CaSO₄·2H₂O",
-                "Gypsum: CaCO₃·MgCO₃ এবং POP: CaSO₄·½H₂O"
+                "Boric acid: H₃BO₃ এবং Borax: Na₂B₄O₇·10H₂O",
+                "Boric acid: Na₂B₄O₇·10H₂O এবং Borax: H₃BO₃",
+                "Boric acid: NaHCO₃ এবং Borax: Na₂CO₃·10H₂O",
+                "Boric acid: NaOH සහ Borax: KOH"
             ],
             correct: 0,
-            explanation: "কনফিউজিং অপশন এড়ানোর উপায়: জিপসাম হলো ক্যালসিয়াম সালফেট ডাইহাইড্রাইড (2 অণু পানি: CaSO₄·2H₂O)। একে উত্তপ্ত করলে পানি হারিয়ে হেমিহাইড্রেট বা আধা অণু পানিযুক্ত 'প্লাস্টার অফ প্যারিস' (CaSO₄·½H₂O) তৈরি হয়।"
+            explanation: "পার্থক্য: বোরিক এসিড একটি মৃদু এসিড (H₃BO₃), আর বোর্যাক্স হলো সোডিয়াম টেট্রাবোরেট ডেকাহাইড্রেট (Na₂B₄O₇·10H₂O)।"
         },
         {
-            question: "মর্র্স সল্ট (Mohr's salt) এর সঠিক রাসায়নিক সংকেত কোনটি?",
+            question: "কাস্টিং বা সোডা ফ্যামিলির মধ্যে 'Washing soda' এবং 'Soda ash' এর সংকেত দুটি কী?",
             options: [
-                "(NH₄)₂Fe(SO₄)₂·6H₂O",
-                "FeSO₄·(NH₄)₂SO₄·7H₂O",
-                "K₂SO₄·Al₂(SO₄)₃·24H₂O",
-                "ZnSO₄·7H₂O"
+                "Washing soda: Na₂CO₃·10H₂O এবং Soda ash: Na₂CO₃",
+                "Washing soda: Na₂CO₃ এবং Soda ash: Na₂CO₃·10H₂O",
+                "Washing soda: NaHCO₃ এবং Soda ash: Na₂CO₃",
+                "Washing soda: NaOH এবং Soda ash: Na₂CO₃"
             ],
             correct: 0,
-            explanation: "বিশ্লেষণ: মর্র্স সল্ট হলো একটি দ্বৈত লবণ (Double salt) যার রাসায়নিক নাম অ্যামোনিয়াম ফেরাস সালফেট হেক্সাহাইড্রেট। এর সঠিক সংকেত হলো (NH₄)₂Fe(SO₄)₂·6H₂O (এখানে ৬ অণু পানি থাকে, যা পটাশ এলামের ২৪ অণু পানির সাথে গুলিয়ে ফেলা যাবে না)।"
+            explanation: "ফাস্ট ট্রিক: ওয়াশিং সোডাতে ১০ অণু পানি (ডেকাহাইড্রেট) থাকে, আর সোডা অ্যাশ হলো সম্পূর্ণ পানিহীন বা অনার্দ্র সোডিয়াম কার্বনেট (Na₂CO₃)।"
         },
         {
-            question: "ক্যালসিয়াম সালফেট বা অন্য যৌগের বাইরে 'Epsom salt' এবং 'Glauber’s salt' যথাক্রমে কোন দুটি যৌগকে নির্দেশ করে?",
+            question: "বেকিং সোডা (Baking soda) এবং কাস্টিক সোডা (Caustic soda) এর রাসায়নিক সংকেত কী?",
             options: [
-                "Epsom: MgSO₄·7H₂O এবং Glauber: Na₂SO₄·10H₂O",
-                "Epsom: Na₂SO₄·10H₂O এবং Glauber: MgSO₄·7H₂O",
-                "Epsom: ZnSO₄·7H₂O এবং Glauber: CuSO₄·5H₂O",
-                "Epsom: CaSO₄·2H₂O এবং Glauber: NaNO₃"
+                "Baking soda: NaHCO₃ এবং Caustic soda: NaOH",
+                "Baking soda: NaOH এবং Caustic soda: NaHCO₃",
+                "Baking soda: Na₂CO₃ এবং Caustic soda: KOH",
+                "Baking soda: NaNO₃ এবং Caustic soda: NH₄Cl"
             ],
             correct: 0,
-            explanation: "মেমোরি ট্রিক: Epsom সল্টে ম্যাগনেসিয়াম সালফেট (MgSO₄·7H₂O) এবং Glauber's সল্টে সোডিয়াম সালফেট ডেকাহাইড্রেট (Na₂SO₄·10H₂O) থাকে। উভয় ক্ষেত্রেই বড় অণুর কোঁচ বা ক্রিস্টাল ওয়াটার রয়েছে।"
+            explanation: "বিশ্লেষণ: বেকিং সোডা হলো সোডিয়াম বাইকার্বনেট বা সোডিয়াম হাইড্রোজেন কার্বনেট (NaHCO₃), আর কাস্টিক সোডা হলো শক্তিশালী ক্ষার সোডিয়াম হাইড্রোক্সাইড (NaOH)।"
         },
         {
-            question: "বোর্যাক্স (Borax) এর সঠিক রাসায়নিক সংকেত নিচের কোনটি?",
-            options: ["Na₂B₄O₇·10H₂O", "H₃BO₃", "NaHCO₃", "Na₃AlF₆"],
-            correct: 0,
-            explanation: "তুলনা: বোর্যাক্স হলো সোডিয়াম টেট্রাবোরেট ডেকাহাইড্রেট (Na₂B₄O₇·10H₂O)। আর বোরিক এসিড হলো H₃BO₃। অপশনে পেঁচিয়ে যাওয়ার সুযোগ নেই যদি বোরন ও পানির অনুপাত (১০ অণু পানি) মাথায় থাকে।"
-        },
-        {
-            question: "ক্রায়োলাইট (Cryolite) এর বিকল্প প্রকাশ রূপ কোনটি?",
-            options: ["Na₃AlF₆ = 3NaF·AlF₃", "CaCO₃·MgCO₃", "CaOCl₂", "NH₄Cl"],
-            correct: 0,
-            explanation: "অ্যানালাইসিস: অ্যালুমিনিয়াম নিষ্কাশনে ফ্লাক্স হিসেবে ব্যবহৃত ক্রায়োলাইটের সংকেত Na₃AlF₆, যা ভেঙে 3NaF·AlF₃ হিসেবেও অনেক সময় পরীক্ষায় অপশনে থাকে। সুতরাং দুটি রূপই সমানভাবে গুরুত্বপূর্ণ।"
-        },
-        {
-            question: "চিলি সল্টপিটার (Chile saltpetre) এবং ইন্ডিয়ান সল্টপিটার (Indian saltpetre) এর সঠিক রাসায়নিক রূপ কোনটি?",
+            question: "সল অ্যামোনিয়াক (Sal ammoniac) এবং পটাশ (Potash) এর সঠিক সংকেত কোনটি?",
             options: [
-                "Chile: NaNO₃ এবং Indian: KNO₃",
-                "Chile: KNO₃ এবং Indian: NaNO₃",
-                "Chile: NaNO₂ এবং Indian: KNO₂",
-                "Chile: NH₄Cl এবং Indian: NaNO₃"
+                "Sal ammoniac: NH₄Cl এবং Potash: K₂CO₃",
+                "Sal ammoniac: K₂CO₃ এবং Potash: NH₄Cl",
+                "Sal ammoniac: KNO₃ এবং Potash: NaOH",
+                "Sal ammoniac: CaOCl₂ এবং Potash: KOH"
             ],
             correct: 0,
-            explanation: "ফাইনাল ট্রিক: সোডিয়াম নাইট্রেট (NaNO₃) হলো 'চিলি সল্টপিটার' (Chile), আর পটাশিয়াম নাইট্রেট (KNO₃) হলো 'ইন্ডিয়ান সল্টপিটার' বা সাধারণ 'সল্টপিটার'। নামের সাথে সোডিয়াম ও পটাশিয়ামের এই পার্থক্যটি ভালোভাবে খেয়াল রাখতে হবে।"
+            explanation: "মনে রাখুন: সাল অ্যামোনিয়াক হলো অ্যামোনিয়াম ক্লোরাইড (NH₄Cl), আর পটাশ হলো পটাশিয়াম কার্বনেট (K₂CO₃)।"
+        },
+        {
+            question: "সল্টপিটার বা ইন্ডিয়ান সল্টপিটার (Indian saltpetre) এর সঠিক সংকেত কোনটি?",
+            options: ["KNO₃", "NaNO₃", "NH₄Cl", "CaCO₃"],
+            correct: 0,
+            explanation: "পার্থক্য: KNO₃ হলো পটাশিয়াম নাইট্রেট (যা ইন্ডিয়ান সল্টপিটার নামে পরিচিত), আর NaNO₃ হলো সোডিয়াম নাইট্রেট (যা চিলি সল্টপিটার)।"
+        },
+        {
+            question: "ব্লিচিং পাউডার (Bleaching powder) এর সঠিক রাসায়নিক সংকেত নিচের কোনটি?",
+            options: ["CaOCl₂", "Ca(OH)₂", "CaO", "CaSO₄·2H₂O"],
+            correct: 0,
+            explanation: "বিশ্লেষণ: ব্লিচিং পাউডার বা ক্যালসিয়াম ক্লোরোহাইপোক্লোরাইটের আণবিক সংকেত হলো CaOCl₂।"
+        },
+        {
+            question: "ভিট্রিওলের ট্রায়ো অনুযায়ী 'White vitriol' এবং 'Blue vitriol' এর সঠিক সংকেতের জোড় কোনটি?",
+            options: [
+                "White vitriol: ZnSO₄·7H₂O এবং Blue vitriol: CuSO₄·5H₂O",
+                "White vitriol: CuSO₄·5H₂O এবং Blue vitriol: ZnSO₄·7H₂O",
+                "White vitriol: FeSO₄·7H₂O এবং Blue vitriol: MgSO₄·7H₂O",
+                "White vitriol: MgSO₄·7H₂O এবং Blue vitriol: ZnSO₄·7H₂O"
+            ],
+            correct: 0,
+            explanation: "ট্রিক: হোয়াইট ভিট্রিওলে জিঙ্ক (ZnSO₄·7H₂O) এবং ব্লু ভিট্রিওলে কপার (CuSO₄·5H₂O) থাকে।"
+        },
+        {
+            question: "লাইম ফ্যামিলির 'Quicklime' এবং 'Slaked lime' এর সঠিক সংকেত কোনটি?",
+            options: [
+                "Quicklime: CaO এবং Slaked lime: Ca(OH)₂",
+                "Quicklime: Ca(OH)₂ এবং Slaked lime: CaO",
+                "Quicklime: CaCO₃ এবং Slaked lime: CaOCl₂",
+                "Quicklime: CaO এবং Slaked lime: CaCO₃"
+            ],
+            correct: 0,
+            explanation: "বিশ্লেষণ: কুইকলাইম বা পোড়া চুন হলো ক্যালসিয়াম অক্সাইড (CaO), আর এতে পানি মিশালে তৈরি হয় স্লেকড লাইম বা কলি চুন Ca(OH)₂।"
+        },
+        {
+            question: "জিপসাম (Gypsum) এর সংকেতে কত অণু ক্রিস্টাল পানি থাকে?",
+            options: ["২ অণু (CaSO₄·2H₂O)", "আধা অণু (CaSO₄·½H₂O)", "৭ অণু (CaSO₄·7H₂O)", "১০ অণু (Na₂SO₄·10H₂O)"],
+            correct: 0,
+            explanation: "নোট: জিপসাম হলো ক্যালসিয়াম সালফেট ডাইহাইড্রাইড (CaSO₄·2H₂O)। একে তাপ দিলে POP বা প্লাস্টার অফ প্যারিস (CaSO₄·½H₂O) তৈরি হয়।"
+        },
+        {
+            question: "জিংক কার্বনেট (Zinc carbonate) এর সাধারণ পরিচিতি বা নাম কী?",
+            options: ["ক্যালামাইন / জিঙ্ক স্পার (Smithsonite)", "হোয়াইট ভিট্রিওলের আকরিক", "ডলোমাইট", "ম্যাগনেসাইট"],
+            correct: 0,
+            explanation: "বিশ্লেষণ: জিংক কার্বনেট (ZnCO₃) হলো জিঙ্কের একটি গুরুত্বপূর্ণ আকরিক যা স্মিথসোনাইট বা জিঙ্ক স্পার নামে পরিচিত।"
         }
     ];
 
@@ -618,13 +658,13 @@
 
         const feedback = document.getElementById('feedback-text');
         if (percentage >= 80) {
-            feedback.textContent = "অসাধারণ! কেমিক্যাল ট্রেড নেমের ওপর আপনার দখল দারুণ! 🚀";
+            feedback.textContent = "অসাধারণ! এখন পরীক্ষার হলে কেমিক্যাল ফর্মুলা নিয়ে কোনো টেনশনই করতে হবে না! 🚀";
             feedback.style.color = "var(--accent-green)";
         } else if (percentage >= 50) {
-            feedback.textContent = "ভালো হয়েছে! তুলনামূলক বিশ্লেষণগুলো আরেকবার চোখ বুলিয়ে নিন। 👍";
+            feedback.textContent = "খুব ভালো হয়েছে! আরেকবার ড্রিলটি দিলেই একদম ১০০% আয়ত্তে চলে আসবে। 👍";
             feedback.style.color = "var(--accent-blue)";
         } else {
-            feedback.textContent = "চার্টটি রিভিশন দিয়ে ড্রিলটি আবার চেষ্টা করুন। 💪";
+            feedback.textContent = "লিস্টটি দেখে নিয়ে ড্রিলটি আবার প্র্যাকটিস করুন। 💪";
             feedback.style.color = "var(--accent-red)";
         }
     }
